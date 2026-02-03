@@ -1,19 +1,27 @@
 #!/bin/sh
 set -eu
 
-# Ensure baseline exists
-if [ ! -f baseline/agent/run_0001.fields.jsonl ]; then
+mkdir -p out/agent
+
+if [ ! -f baseline/agent/current.fields.jsonl ]; then
   echo "baseline missing; run: make agent_baseline" >&2
   exit 2
 fi
 
-echo "-- drift run_0002 vs baseline (expect drift => exit 1)"
+echo "-- drift vs baseline (expect drift => exit 1 when drift exists)"
 set +e
-cat fixtures/agent/run_0002_drift.jsonl | jd drift --baseline baseline/agent/run_0001.fields.jsonl
+cat fixtures/agent/run_0002_drift.jsonl | jd drift --baseline baseline/agent/current.fields.jsonl > out/agent/drift.jsonl
 rc=$?
 set -e
 
-if [ "$rc" -ne 1 ]; then
-  echo "unexpected: drift rc=$rc (expected 1)" >&2
-  exit 1
+# rc meanings:
+# 0 no drift
+# 1 drift detected
+# 2 error
+if [ "$rc" -eq 2 ]; then
+  echo "jd drift error" >&2
+  exit 2
 fi
+
+echo "wrote out/agent/drift.jsonl (rc=$rc)"
+exit "$rc"

@@ -1,6 +1,6 @@
 SHELL := /bin/sh
 PATH := $(CURDIR)/bin:$(PATH)
-.PHONY: agent agent_validate agent_baseline agent_drift agent_compact
+.PHONY: agent agent_validate agent_baseline agent_drift agent_compact agent_heartbeat agent_accept_baseline
 
 demo:
 	@echo "== kv headers -> jsonl keys"
@@ -108,6 +108,14 @@ agent_drift:
 agent_compact:
 	@recipes/agent_compact_state.sh
 
-agent: agent_validate agent_baseline agent_drift agent_compact
+agent_heartbeat:
+	@set +e; recipes/agent_heartbeat.sh $(FILE); rc=$$?; set -e; \
+	if [ "$$rc" -eq 2 ]; then exit 2; fi; \
+	exit 0
+
+agent_accept_baseline:
+	@recipes/agent_accept_baseline.sh $(FILE)
+
+agent: agent_validate agent_baseline agent_drift agent_compact agent_heartbeat
 
 check: demo test recipes
