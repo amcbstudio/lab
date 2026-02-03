@@ -42,5 +42,14 @@ recipes:
 	@echo
 	@echo "== events_users"
 	@recipes/events_users.sh
+	@echo
+	@echo "== jd_scan_broken_syntax"
+	@recipes/jd_scan_broken_syntax.sh
+	@echo
+	@echo "== jd_fields_events"
+	@recipes/jd_fields_events.sh
+	@echo
+	@echo "== jd_drift_type_change"
+	@recipes/jd_drift_type_change.sh
 
-check: demo test
+check: demo test recipes
