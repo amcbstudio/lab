@@ -1,6 +1,6 @@
 SHELL := /bin/sh
 PATH := $(CURDIR)/bin:$(PATH)
-.PHONY: demo test golden recipes check jd_demo
+.PHONY: agent agent_validate agent_baseline agent_drift agent_compact
 
 demo:
 	@echo "== kv headers -> jsonl keys"
@@ -75,6 +75,18 @@ recipes:
 	@echo
 	@echo "== jd_drift_event_colon"
 	@recipes/jd_drift_event_colon.sh || true
+	@echo
+	@echo "== agent_validate"
+	@recipes/agent_validate.sh
+	@echo
+	@echo "== agent_baseline"
+	@recipes/agent_baseline_write.sh
+	@echo
+	@echo "== agent_drift"
+	@recipes/agent_drift_check.sh
+	@echo
+	@echo "== agent_compact"
+	@recipes/agent_compact_state.sh
 
 jd_demo:
 	@echo "== scan valid"
@@ -83,5 +95,19 @@ jd_demo:
 	@cat fixtures/jsonl/events_broken.syntax.jsonl | jd scan || true
 	@echo "== fields"
 	@cat fixtures/jsonl/events.jsonl | jd fields | sed -n '1,12p'
+
+agent_validate:
+	@recipes/agent_validate.sh
+
+agent_baseline:
+	@recipes/agent_baseline_write.sh
+
+agent_drift:
+	@recipes/agent_drift_check.sh
+
+agent_compact:
+	@recipes/agent_compact_state.sh
+
+agent: agent_validate agent_baseline agent_drift agent_compact
 
 check: demo test recipes

@@ -1,0 +1,4 @@
+{"ts":1700000001,"run_id":"0001","type":"event","event":"login","user":"alice","ok":true}
+{"ts":1700000002,"run_id":"0001","type":"event","event":"upload","user":"bob","bytes":1234}
+{"ts":1700000003,"run_id":"0001","type":"decision","key":"timezone","value":"America/Sao_Paulo"}
+{"ts":1700000004,"run_id":"0001","type":"counter","key":"tasks_done","delta":1}
