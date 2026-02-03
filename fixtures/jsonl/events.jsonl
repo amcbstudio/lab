@@ -1,0 +1,3 @@
+{"ts":1700000001,"event":"login","user":"alice","ok":true}
+{"ts":1700000002,"event":"upload","user":"bob","bytes":1234}
+{"ts":1700000003,"event":"logout","user":"alice","ok":true}

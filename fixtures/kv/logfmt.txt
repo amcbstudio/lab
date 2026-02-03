@@ -1,0 +1,2 @@
+level=info msg="user login" user_id=123 ok=true
+level=error msg="db timeout" user_id=123 ok=false
