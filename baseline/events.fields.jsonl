@@ -1,0 +1,3 @@
+mkdir -p baseline
+cat fixtures/jsonl/events.jsonl | jd fields > baseline/events.fields.jsonl
+cat fixtures/jsonl/events.jsonl | jd drift --baseline baseline/events.fields.jsonl; echo "exit=$?"

@@ -1,0 +1,4 @@
+{"type":"field_appeared","field":"event:","line":1,"value_type":"string"}
+{"type":"field_disappeared","field":"event","last_line":0,"last_type":"string"}
+{"type":"field_disappeared","field":"bytes","last_line":0,"last_type":"number"}
+{"type":"summary","lines":1,"records":1,"fields":4}

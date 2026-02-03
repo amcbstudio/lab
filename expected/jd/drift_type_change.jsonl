@@ -1,0 +1,3 @@
+{"type":"field_disappeared","field":"bytes","last_line":0,"last_type":"number"}
+{"type":"type_changed","field":"ok","line":2,"from":"bool","to":"string"}
+{"type":"summary","lines":2,"records":2,"fields":4}
